@@ -7,8 +7,8 @@
   /* Base tokens */
   /* Do not use base tokens directly as they don't carry any meaning and are used to set our base. Refer to Application tokens below. */
   /** Color **/
-  --color-white: #ffffff;
-  --color-black-a10: rgba(0, 0, 0, 0.1);
+  --color-white: #000;
+  --color-black-a10: #fff;
   --color-blue-05: #deeafc;
   --color-blue-30: #73a7f3;
   --color-blue-50: #0060df;
