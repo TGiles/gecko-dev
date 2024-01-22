@@ -1,17 +1,10 @@
 /**
  * Do not edit directly
- * Generated on Fri, 12 Jan 2024 19:25:11 GMT
+ * Generated on Mon, 22 Jan 2024 22:09:03 GMT
  */
 
+
 :root {
-  --color-background-critical-light: #ffe8e8;
-  --color-background-critical-dark: #690f22;
-  --color-background-information-light: #deeafc;
-  --color-background-information-dark: #003070;
-  --color-background-success-light: #d8eedc;
-  --color-background-success-dark: #5a3100;
-  --color-background-warning-light: #ffebcd;
-  --color-background-warning-dark: #003070;
   --color-black-a10: rgba(0, 0, 0, 0.1);
   --color-blue-30: #73a7f3;
   --color-blue-50: #0060df;
@@ -41,11 +34,13 @@
   --color-yellow-50: #cd411e;
   --color-yellow-80: #5a3100;
   --color-yellow-05: #ffebcd;
-  --text-color-prefers-contrast: CanvasText;
-  --text-color-deemphasized-prefers-contrast: inherit;
-  --text-color-brand-light: #15141a;
-  --text-color-brand-dark: #fbfbfe;
-  --text-color-brand-deemphasized-light: color-mix(in srgb, currentColor 69%, transparent);
-  --text-color-brand-deemphasized-dark: color-mix(in srgb, currentColor 75%, transparent);
-  --platform: currentColor;
+  --color-white: #ffffff;
+  --color-background-critical: light-dark(var(--color-red-05), var(--color-red-80));
+  --color-background-information: light-dark(var(--color-blue-05), var(--color-blue-80));
+  --color-background-success: light-dark(var(--color-green-05), var(--color-yellow-80));
+  --color-background-warning: light-dark(var(--color-yellow-05), var(--color-blue-80));
+  --text-color: CanvasText;
+  --text-brand: light-dark(var(--color-gray-100), var(--color-gray-05));
+  --text-platform: currentColor;
+  --text-deemphasized: color-mix(in srgb, currentColor 60%, transparent);
 }
