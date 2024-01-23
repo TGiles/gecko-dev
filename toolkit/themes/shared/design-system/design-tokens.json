@@ -107,19 +107,19 @@
     "background": {
       "critical": {
         "value": "{color.red.05}",
-        "darkValue": "{color.red.80}"
+        "dark": "{color.red.80}"
       },
       "information": {
         "value": "{color.blue.05}",
-        "darkValue": "{color.blue.80}"
+        "dark": "{color.blue.80}"
       },
       "success": {
         "value": "{color.green.05}",
-        "darkValue": "{color.yellow.80}"
+        "dark": "{color.yellow.80}"
       },
       "warning": {
         "value": "{color.yellow.05}",
-        "darkValue": "{color.blue.80}"
+        "dark": "{color.blue.80}"
       }
     }
   },
@@ -129,7 +129,7 @@
     },
     "brand": {
       "value": "{color.gray.100}",
-      "darkValue": "{color.gray.05}"
+      "dark": "{color.gray.05}"
     },
     "platform": {
       "value": "currentColor"
