@@ -5,15 +5,20 @@
 /* eslint-env node */
 
 const StyleDictionary = require("style-dictionary");
-const { fileHeader } = StyleDictionary.formatHelpers;
+const { fileHeader, sortByReference } = StyleDictionary.formatHelpers;
 
 /**
  * CSS formatter that converts tokens that have a light and dark value
  * to a light-dark() function. If we try to use the built-in CSS formatter,
- * we will lose the "darkValue" or any other property that isn't "value".
+ * we will lose the "dark" value or any other property that isn't "value".
  */
 function lightDarkFormatter(args) {
   let dictionary = args.dictionary;
+  let indentation = args.indentation ? args.indentation : "  ";
+  let file = args.file;
+  let selector = args.selector ? args.selector : `:root`;
+  // Sort references after their definition
+  dictionary.allTokens = [...dictionary.allTokens].sort(sortByReference(dictionary));
   let modifiedDictionary = dictionary.allTokens.map(token => {
     // the `dictionary` object now has `usesReference()` and
     // `getReferences()` methods. `usesReference()` will return true if
@@ -25,25 +30,26 @@ function lightDarkFormatter(args) {
       // `token.value` is already resolved at this point.
       const lightRefs = dictionary.getReferences(token.original.value);
       const darkRefs = dictionary.getReferences(token.original.dark);
-      if (lightRefs.length > 0 || darkRefs.length > 0) {
-        for (let i = 0; i < darkRefs.length; i++) {
-          let currentLightName = lightRefs[i]?.name;
-          let currentDarkName = darkRefs[i]?.name;
-          let lightValue = currentLightName ? 
-          `var(--${currentLightName})` : `${token.original.value}`;
-          let darkValue = currentDarkName ?
-          `var(--${currentDarkName})` : `${token.original.dark}`;
-          token.value = `light-dark(${lightValue}, ${darkValue})`
-        }
-      } else {
-        value = `light-dark(${token.original.value}, ${token.original.dark})`;
-        token.value = value;
-      }
+      let currentLightName = lightRefs[0]?.name;
+      let currentDarkName = darkRefs[0]?.name;
+      let lightValue = currentLightName ?
+        `var(--${currentLightName})` : `${token.original.value}`;
+      let darkValue = currentDarkName ?
+        `var(--${currentDarkName})` : `${token.original.dark}`;
+      token.value = `light-dark(${lightValue}, ${darkValue})`
     }
     return token;
   });
   dictionary.allTokens = modifiedDictionary;
-  return StyleDictionary.format["css/variables"]({...args, dictionary});
+
+  // We have to manually format the generated tokens into the file.
+  // If we try to use the formattedVariables() helper with the CSS format
+  // and outputReferences: true, then we will lose our light-dark() function.
+  let mappedValues = modifiedDictionary.map(element => {
+    let joinedValue = `${indentation}--${element.name}: ${element.value};`
+    return joinedValue;
+  }).join("\n");
+  return `${fileHeader({ file })}\n${selector} {\n${mappedValues}\n}`;
 }
 
 module.exports = {
