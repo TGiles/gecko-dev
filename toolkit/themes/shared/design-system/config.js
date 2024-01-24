@@ -25,7 +25,7 @@ module.exports = {
   platforms: {
     css: {
       transforms: [
-        ...StyleDictionary.transformGroup["css"],
+        ...StyleDictionary.transformGroup.css,
         "lightDarkTransform",
       ],
       buildPath: "build/css/",
